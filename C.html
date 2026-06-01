@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>لوحة متابعة الخطة التشغيلية 1448هـ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+:root{
+--primary:#006c35;
+--secondary:#00a86b;
+--light:#f4f7fb;
+--white:#ffffff;
+--success:#28a745;
+--warning:#f0ad4e;
+--danger:#dc3545;
+--shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+}
+
+body{
+background:var(--light);
+}
+
+.header{
+background:linear-gradient(135deg,var(--primary),var(--secondary));
+color:white;
+padding:25px;
+box-shadow:var(--shadow);
+}
+
+.header-container{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.logo{
+width:90px;
+height:90px;
+background:white;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+.logo img{
+width:80%;
+}
+
+.school{
+text-align:center;
+flex:1;
+}
+
+.school h1{
+font-size:34px;
+font-weight:800;
+}
+
+.school p{
+font-size:18px;
+margin-top:6px;
+}
+
+.container{
+padding:25px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-bottom:25px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:var(--shadow);
+text-align:center;
+}
+
+.card h3{
+color:#666;
+margin-bottom:10px;
+}
+
+.card .value{
+font-size:38px;
+font-weight:800;
+color:var(--primary);
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+margin-bottom:20px;
+}
+
+.panel{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:var(--shadow);
+}
+
+.panel h2{
+color:var(--primary);
+margin-bottom:15px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:var(--primary);
+color:white;
+padding:12px;
+}
+
+td{
+padding:10px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+input,select{
+width:100%;
+padding:10px;
+border:1px solid #ddd;
+border-radius:8px;
+}
+
+.btn{
+background:var(--primary);
+color:white;
+padding:12px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:700;
+}
+
+.btn:hover{
+opacity:.9;
+}
+
+.badge{
+padding:5px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+color:white;
+}
+
+.done{background:var(--success);}
+.progress{background:var(--warning);}
+.notdone{background:var(--danger);}
+
+.form-grid{
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr auto;
+gap:10px;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:15px;
+margin-top:15px;
+}
+
+.gallery img{
+width:100%;
+height:160px;
+object-fit:cover;
+border-radius:10px;
+box-shadow:var(--shadow);
+}
+
+.footer{
+text-align:center;
+padding:20px;
+color:#666;
+}
+
+@media(max-width:900px){
+.grid{
+grid-template-columns:1fr;
+}
+.form-grid{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+
+<div class="header-container">
+
+<div class="logo">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Ministry_of_Education.svg">
+</div>
+
+<div class="school">
+<h1>مدرسة عبدالله بن مسعود الابتدائية</h1>
+<p>الخطة التشغيلية للعام الدراسي 1448هـ</p>
+<p>مدير المدرسة : محمد علي آل عبية</p>
+<p>إعداد المعلم : عالي الغامدي</p>
+</div>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="cards">
+
+<div class="card">
+<h3>إجمالي البرامج</h3>
+<div class="value" id="totalPrograms">0</div>
+</div>
+
+<div class="card">
+<h3>تم التنفيذ</h3>
+<div class="value" id="donePrograms">0</div>
+</div>
+
+<div class="card">
+<h3>جاري التنفيذ</h3>
+<div class="value" id="progressPrograms">0</div>
+</div>
+
+<div class="card">
+<h3>لم يتم التنفيذ</h3>
+<div class="value" id="notPrograms">0</div>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="panel">
+<h2>نسب التنفيذ</h2>
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="panel">
+<h2>أداء المجالات</h2>
+<canvas id="barChart"></canvas>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>إضافة برنامج جديد</h2>
+
+<div class="form-grid">
+
+<input id="programName" placeholder="اسم البرنامج">
+
+<select id="programStatus">
+<option>تم</option>
+<option>جاري التنفيذ</option>
+<option>لم يتم</option>
+</select>
+
+<input type="date" id="programDate">
+
+<input type="file" id="programImage">
+
+<button class="btn" onclick="addProgram()">إضافة</button>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+<h2>متابعة البرامج</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>البرنامج</th>
+<th>الحالة</th>
+<th>التاريخ</th>
+<th>الصورة</th>
+</tr>
+</thead>
+
+<tbody id="programTable"></tbody>
+
+</table>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+<h2>معرض صور التنفيذ</h2>
+
+<div class="gallery" id="gallery"></div>
+
+</div>
+
+</div>
+
+<div class="footer">
+© 1448هـ - مدرسة عبدالله بن مسعود الابتدائية
+</div>
+
+<script>
+
+let programs=JSON.parse(localStorage.getItem("schoolPrograms"))||[];
+
+function saveData(){
+localStorage.setItem("schoolPrograms",JSON.stringify(programs));
+}
+
+function addProgram(){
+
+const name=document.getElementById("programName").value;
+const status=document.getElementById("programStatus").value;
+const date=document.getElementById("programDate").value;
+const file=document.getElementById("programImage").files[0];
+
+if(!name) return;
+
+const reader=new FileReader();
+
+reader.onload=function(e){
+
+programs.push({
+name,
+status,
+date,
+image:e.target.result
+});
+
+saveData();
+render();
+
+};
+
+if(file){
+reader.readAsDataURL(file);
+}else{
+
+programs.push({
+name,
+status,
+date,
+image:""
+});
+
+saveData();
+render();
+
+}
+
+}
+
+function render(){
+
+let table="";
+let gallery="";
+
+let done=0;
+let progress=0;
+let notdone=0;
+
+programs.forEach(p=>{
+
+let cls="";
+
+if(p.status==="تم"){
+cls="done";
+done++;
+}
+else if(p.status==="جاري التنفيذ"){
+cls="progress";
+progress++;
+}
+else{
+cls="notdone";
+notdone++;
+}
+
+table+=`
+<tr>
+<td>${p.name}</td>
+<td><span class="badge ${cls}">${p.status}</span></td>
+<td>${p.date}</td>
+<td>${p.image?'<img src="'+p.image+'" width="70">':'-'}</td>
+</tr>
+`;
+
+if(p.image){
+gallery+=`<img src="${p.image}">`;
+}
+
+});
+
+document.getElementById("programTable").innerHTML=table;
+document.getElementById("gallery").innerHTML=gallery;
+
+document.getElementById("totalPrograms").textContent=programs.length;
+document.getElementById("donePrograms").textContent=done;
+document.getElementById("progressPrograms").textContent=progress;
+document.getElementById("notPrograms").textContent=notdone;
+
+pieChart.data.datasets[0].data=[done,progress,notdone];
+pieChart.update();
+
+barChart.data.datasets[0].data=[
+Math.round((done/programs.length||0)*100),
+85,
+78,
+92
+];
+
+barChart.update();
+
+}
+
+const pieChart=new Chart(
+document.getElementById("pieChart"),
+{
+type:'doughnut',
+data:{
+labels:['تم','جاري التنفيذ','لم يتم'],
+datasets:[{
+data:[0,0,0]
+}]
+}
+});
+
+const barChart=new Chart(
+document.getElementById("barChart"),
+{
+type:'bar',
+data:{
+labels:[
+'القيادة',
+'التعلم',
+'البيئة',
+'الشراكة'
+],
+datasets:[{
+label:'نسبة الإنجاز %',
+data:[0,85,78,92]
+}]
+}
+});
+
+render();
+
+</script>
+
+</body>
+</html>
