@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة متابعة الخطة التشغيلية 1448هـ</title>
+    <!-- Google Fonts: Cairo for UI, Aref Ruqaa for the School name -->
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for professional modern icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for beautiful analytics and dashboards -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        eduGreen: '#0f766e', // Deep educational teal
+                        eduGold: '#b45309',  // Elegant educational gold
+                        eduSlate: '#0f172a'  // Dark slate
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        ruqaa: ['"Aref Ruqaa"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .ruqaa-title {
+            font-family: 'Aref Ruqaa', serif;
+        }
+        /* Custom scrollbars for a premium desktop feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header with school identity -->
+    <header class="bg-gradient-to-r from-eduSlate via-emerald-950 to-eduSlate text-white shadow-xl relative overflow-hidden">
+        <!-- Abstract geometry background for premium layout -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-yellow-300 via-transparent to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 py-6 md:py-8 relative z-10">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <!-- Right Side: Title & Calligraphy Name -->
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/10 p-3 rounded-2xl backdrop-blur-md border border-white/20 shadow-inner">
+                        <i class="fa-solid fa-school-flag text-4xl text-yellow-400"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-0.5 rounded-full border border-amber-500/30 font-semibold">
+                                وزارة التعليم بالمملكة العربية السعودية
+                            </span>
+                            <span class="bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                                عام ١٤٤٨ هـ
+                            </span>
+                        </div>
+                        <h1 class="ruqaa-title text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-l from-amber-300 to-emerald-100 tracking-wide py-2 leading-relaxed">
+                            مدرسة عبدالله بن مسعود الابتدائية
+                        </h1>
+                        <p class="text-slate-300 text-sm md:text-base flex items-center gap-2 mt-1">
+                            <i class="fa-solid fa-chart-line text-emerald-400"></i>
+                            نظام متابعة وتقييم الخطة التشغيلية للعام الدراسي ١٤٤٨ هـ
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Left Side: Meta Info (Principal & Creator) -->
+                <div class="flex flex-col sm:flex-row gap-4 bg-white/5 p-4 rounded-2xl border border-white/10 backdrop-blur-md self-start md:self-center">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-300">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 block font-light">مدير المدرسة</span>
+                            <span class="text-sm font-semibold text-white">أ. محمد علي آل عبية</span>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block h-10 w-[1px] bg-white/10"></div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-300">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 block font-light">إعداد وتطوير المعلم</span>
+                            <span class="text-sm font-semibold text-white">أ. عالي الغامدي</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8">
+        
+        <!-- STATS / KPI SECTION -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+            <!-- Total Programs Card -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+                <div>
+                    <span class="text-slate-400 text-sm font-semibold block mb-1">إجمالي البرامج</span>
+                    <span id="total-programs-count" class="text-3xl font-bold text-slate-800">0</span>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+            </div>
+
+            <!-- Executed Programs Card -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+                <div>
+                    <span class="text-slate-400 text-sm font-semibold block mb-1">البرامج المنفذة</span>
+                    <span id="completed-programs-count" class="text-3xl font-bold text-emerald-600">0</span>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </div>
+
+            <!-- In Progress Programs Card -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+                <div>
+                    <span class="text-slate-400 text-sm font-semibold block mb-1">جاري التنفيذ</span>
+                    <span id="ongoing-programs-count" class="text-3xl font-bold text-amber-600">0</span>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                </div>
+            </div>
+
+            <!-- Not Executed Programs Card -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+                <div>
+                    <span class="text-slate-400 text-sm font-semibold block mb-1">غير المنفذة</span>
+                    <span id="pending-programs-count" class="text-3xl font-bold text-rose-600">0</span>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+            </div>
+
+            <!-- Completion Rate Card -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1 col-span-1 sm:col-span-2 lg:col-span-1">
+                <div>
+                    <span class="text-slate-400 text-sm font-semibold block mb-1">نسبة الإنجاز العامة</span>
+                    <span id="completion-rate" class="text-3xl font-extrabold text-eduGreen">0%</span>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl font-bold" id="progress-indicator-circle">
+                    %
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS & INTERACTION GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Analytical Chart Block -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 lg:col-span-2 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-emerald-600"></i>
+                            تحليل مؤشرات التنفيذ الحالية
+                        </h2>
+                        <span class="text-xs text-slate-400">تحديث فوري وتلقائي</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-6">يعرض هذا الشكل التوضيحي توزيع برامج الخطة التشغيلية بناءً على التقدم الفعلي لعمليات التنفيذ داخل المدرسة.</p>
+                </div>
+                <div class="w-full max-h-[260px] flex items-center justify-center relative py-2">
+                    <canvas id="statusChart" class="max-w-full" style="max-height: 240px;"></canvas>
+                </div>
+            </div>
+
+            <!-- Quick Action Block & Execution Guideline -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-amber-500"></i>
+                        مفاتيح وموجهات الخطة ١٤٤٨هـ
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-4">نحو ريادة تعليمية وبناء جيل معرفي متكامل بمدرسة عبدالله بن مسعود الابتدائية.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex gap-3 p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                            <i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-emerald-900">تأكيد توثيق الشواهد</h4>
+                                <p class="text-[11px] text-emerald-700">يجب رفع صور جودة عالية كإثبات رسمي لتنفيذ البرنامج للجنة التوجيه.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+                            <i class="fa-solid fa-clock text-amber-600 mt-1"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-amber-900">متابعة التواريخ الهجرية</h4>
+                                <p class="text-[11px] text-amber-700">الالتزام بالجدول الزمني المعتمد وتحديث حالة البرامج بمجرد البدء.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 p-3 bg-indigo-50/50 rounded-xl border border-indigo-100">
+                            <i class="fa-solid fa-star text-indigo-600 mt-1"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-indigo-900">التميز المؤسسي</h4>
+                                <p class="text-[11px] text-indigo-700">الوصول لنسبة إنجاز تفوق 90% يعكس كفاءة العمليات الإدارية.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="toggleAddModal(true)" class="mt-6 w-full bg-gradient-to-r from-eduGreen to-emerald-600 text-white font-semibold py-3.5 px-4 rounded-xl shadow-lg shadow-emerald-700/15 hover:shadow-xl hover:shadow-emerald-700/25 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus-circle text-lg"></i>
+                    إضافة برنامج جديد للخطة
+                </button>
+            </div>
+        </div>
+
+        <!-- PROGRAMS FILTER & TABLE SECTION -->
+        <section class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-12">
+            <!-- Header section of the table list -->
+            <div class="p-6 border-b border-slate-100 bg-gradient-to-l from-slate-50 to-white flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-slate-600"></i>
+                        تفاصيل ومسارات برامج الخطة التشغيلية
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1">استعراض وتعديل حالة البرامج ورفع الشواهد والصور الخاصة بالتنفيذ</p>
+                </div>
+                
+                <!-- Search and Filters UI -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative min-w-[200px]">
+                        <input type="text" id="search-bar" oninput="filterPrograms()" placeholder="ابحث باسم البرنامج..." class="w-full pr-10 pl-4 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-eduGreen focus:border-eduGreen outline-none">
+                        <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3 text-slate-400 text-xs"></i>
+                    </div>
+                    <div class="flex rounded-xl p-1 bg-slate-100 border border-slate-200">
+                        <button onclick="setFilter('all')" id="btn-filter-all" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-white text-slate-800 shadow-sm">الكل</button>
+                        <button onclick="setFilter('completed')" id="btn-filter-completed" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-800">تم</button>
+                        <button onclick="setFilter('ongoing')" id="btn-filter-ongoing" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-800">جاري التنفيذ</button>
+                        <button onclick="setFilter('pending')" id="btn-filter-pending" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-800">لم يتم</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table layout for medium/large screens, Cards layout for mobile -->
+            <div class="overflow-x-auto hidden md:block">
+                <table class="w-full text-right border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 text-slate-500 text-xs font-bold border-b border-slate-100">
+                            <th class="p-4 w-12 text-center">#</th>
+                            <th class="p-4">اسم البرنامج ومساره</th>
+                            <th class="p-4">الفئة المستهدفة</th>
+                            <th class="p-4">تاريخ التنفيذ</th>
+                            <th class="p-4 w-32">حالة التنفيذ</th>
+                            <th class="p-4">شواهد وصور التنفيذ</th>
+                            <th class="p-4 text-center w-28">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="programs-table-body" class="divide-y divide-slate-100 text-sm">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile View List (Cards) -->
+            <div id="programs-cards-container" class="block md:hidden p-4 space-y-4">
+                <!-- Filled by JavaScript -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden flex-col items-center justify-center py-16 text-center">
+                <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-2xl mb-4">
+                    <i class="fa-solid fa-folder-open"></i>
+                </div>
+                <h4 class="text-sm font-bold text-slate-700">لا يوجد برامج مسجلة حالياً</h4>
+                <p class="text-xs text-slate-400 mt-1 max-w-[280px]">اضغط على زر إضافة برنامج جديد للبدء في تدوين بنود الخطة التشغيلية.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL: ADD / EDIT PROGRAM -->
+    <div id="program-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 p-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl border border-slate-100 overflow-hidden transform scale-95 transition-all duration-300" id="modal-container">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-l from-eduSlate to-emerald-950 p-6 text-white flex items-center justify-between">
+                <div>
+                    <h3 id="modal-title" class="text-lg font-bold">إضافة برنامج تشغيلي جديد</h3>
+                    <p class="text-[11px] text-emerald-200 mt-0.5">أدخل البيانات الأساسية للبرنامج المطلوب تتبعه</p>
+                </div>
+                <button onclick="toggleAddModal(false)" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Form) -->
+            <form id="program-form" onsubmit="saveProgram(event)" class="p-6 space-y-4">
+                <input type="hidden" id="program-id">
+                
+                <!-- Program Name -->
+                <div>
+                    <label for="program-name" class="block text-xs font-bold text-slate-700 mb-1.5">اسم البرنامج أو المبادرة *</label>
+                    <input type="text" id="program-name" required placeholder="مثال: الأسبوع التمهيدي والتهيئة، تكريم الطلاب المتفوقين..." class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-eduGreen focus:border-eduGreen outline-none">
+                </div>
+
+                <!-- Target Audience & Category -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="program-target" class="block text-xs font-bold text-slate-700 mb-1.5">الفئة المستهدفة *</label>
+                        <input type="text" id="program-target" required placeholder="مثال: جميع الطلاب، الصف الأول..." class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-eduGreen focus:border-eduGreen outline-none">
+                    </div>
+                    <div>
+                        <label for="program-date" class="block text-xs font-bold text-slate-700 mb-1.5">تاريخ التنفيذ المتوقع/الفعلي *</label>
+                        <input type="text" id="program-date" required placeholder="مثال: ٢٢-١-١٤٤٨هـ" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-eduGreen focus:border-eduGreen outline-none">
+                    </div>
+                </div>
+
+                <!-- Execution Status selection -->
+                <div>
+                    <label for="program-status" class="block text-xs font-bold text-slate-700 mb-1.5">حالة التنفيذ الحالية *</label>
+                    <select id="program-status" required class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-eduGreen focus:border-eduGreen bg-white outline-none">
+                        <option value="pending">لم يتم (غير منفذ)</option>
+                        <option value="ongoing">جاري التنفيذ</option>
+                        <option value="completed">تم التنفيذ</option>
+                    </select>
+                </div>
+
+                <!-- Program Description/Notes -->
+                <div>
+                    <label for="program-desc" class="block text-xs font-bold text-slate-700 mb-1.5">وصف ومؤشرات الأداء للبرنامج (اختياري)</label>
+                    <textarea id="program-desc" rows="2" placeholder="أهداف البرنامج ونسب الحضور ومخرجات التطبيق..." class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-eduGreen focus:border-eduGreen outline-none resize-none"></textarea>
+                </div>
+
+                <!-- Evidence / Photo Upload inside the program addition form -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">صور وشواهد التنفيذ</label>
+                    <div class="border-2 border-dashed border-slate-200 hover:border-eduGreen/50 rounded-2xl p-4 transition-all duration-200 bg-slate-50 relative flex flex-col items-center justify-center text-center">
+                        <input type="file" id="program-files" accept="image/*" multiple onchange="handleFileSelection(event)" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                        <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-400 mb-1.5"></i>
+                        <span class="text-xs font-bold text-slate-600">انقر هنا أو اسحب الصور لرفعها</span>
+                        <span class="text-[10px] text-slate-400 mt-0.5">تنسيق JPEG, PNG شواهد التنفيذ (الحد الأقصى: 3 صور)</span>
+                    </div>
+                    <!-- Selected Images Preview Grid -->
+                    <div id="file-previews-container" class="grid grid-cols-4 gap-2 mt-3"></div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="toggleAddModal(false)" class="px-5 py-2.5 border border-slate-200 text-slate-500 rounded-xl text-xs font-bold hover:bg-slate-50 transition-all">
+                        إلغاء
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 bg-eduGreen text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-700/15 hover:shadow-lg transition-all">
+                        حفظ البرنامج
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL FOR EVIDENCE VIEWING -->
+    <div id="gallery-lightbox" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-300 p-4">
+        <button onclick="toggleLightbox(false)" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl transition-all">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-4xl max-h-[75vh] w-full flex items-center justify-center">
+            <img id="lightbox-image" src="" alt="شاهد التنفيذ" class="max-w-full max-h-[75vh] object-contain rounded-xl shadow-2xl border border-white/10">
+        </div>
+        <div class="mt-4 text-center max-w-xl">
+            <h4 id="lightbox-title" class="text-white text-base font-bold">شاهد التنفيذ</h4>
+            <p id="lightbox-meta" class="text-slate-400 text-xs mt-1">تفاصيل برنامج الخطة التشغيلية</p>
+        </div>
+    </div>
+
+    <!-- TOAST MESSAGES BOX -->
+    <div id="toast-container" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2"></div>
+
+    <!-- FOOTER -->
+    <footer class="bg-eduSlate text-slate-400 text-xs py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-center md:text-right">
+                <span class="block text-slate-300 font-bold mb-1 text-sm">مدرسة عبدالله بن مسعود الابتدائية</span>
+                <p>جميع الحقوق محفوظة للخطة التشغيلية المدرسية للعام الدراسي ١٤٤٨ هـ ©</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="text-left text-[11px] md:text-xs">
+                    <span class="text-slate-500 block">إعداد وتصميم النظام:</span>
+                    <span class="text-emerald-400 font-semibold">أ. عالي الغامدي</span>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-emerald-400 border border-slate-700">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // CORE APP STATE
+        let programs = [];
+        let currentFilter = 'all';
+        let currentUploadedImages = []; // Temp storage for newly added images during modal creation
+        let myChartInstance = null; // Chart reference to reset dynamically
+
+        // Default Mock Data for immediate professional presentation
+        const defaultPrograms = [
+            {
+                id: "1",
+                name: "برنامج الأسبوع التمهيدي والتهيئة للطلاب المستجدين",
+                target: "طلاب الصف الأول الابتدائي",
+                date: "١٢-١-١٤٤٨ هـ",
+                status: "completed",
+                desc: "استقبال الطلاب المستجدين وأولياء أمورهم وتوزيع الهدايا والكتب المدرسية مع توثيق الفعاليات الترفيهية.",
+                images: ["https://placehold.co/600x400/0f766e/ffffff?text=الاسبوع+التمهيدي+1448"]
+            },
+            {
+                id: "2",
+                name: "الاحتفاء باليوم الوطني السعودي الـ ٩٧",
+                target: "جميع منسوبي المدرسة والطلاب",
+                date: "٢٥-٢-١٤٤٨ هـ",
+                status: "ongoing",
+                desc: "تنظيم إذاعة مدرسية مميزة، مسابقة أفضل رسمة تعبيرية، ومعرض فني للوحات الوطنية.",
+                images: []
+            },
+            {
+                id: "3",
+                name: "مبادرة تعزيز القراءة الفعالة والمهارات القرائية",
+                target: "طلاب الصفوف الأولية (1-3)",
+                date: "٠٥-٣-١٤٤٨ هـ",
+                status: "pending",
+                desc: "تحسين نواتج التعلم ورفع القدرات الإملائية والقراءة السريعة لدى الفئات المستهدفة.",
+                images: []
+            },
+            {
+                id: "4",
+                name: "مجلس الآباء والمعلمين الأول واللقاء التعريفي",
+                target: "أولياء أمور الطلاب",
+                date: "١٨-٢-١٤٤٨ هـ",
+                status: "completed",
+                desc: "مناقشة تطلعات الخطة التشغيلية وسبل التعاون وبناء شراكة مجتمعية قوية لضمان تميز الطلاب.",
+                images: ["https://placehold.co/600x400/b45309/ffffff?text=مجلس+الاباء+المجتمعي"]
+            },
+            {
+                id: "5",
+                name: "برنامج الإرشاد المهني والمسابقات الثقافية والرياضية",
+                target: "طلاب الصفوف العليا (4-6)",
+                date: "٠١-٤-١٤٤٨ هـ",
+                status: "ongoing",
+                desc: "تعزيز روح التنافس الشريف واكتشاف مواهب الطلاب وصقل مهاراتهم الإبداعية والذهنية.",
+                images: []
+            }
+        ];
+
+        window.onload = function() {
+            // Check local storage or initialize mock data
+            const stored = localStorage.getItem('operational_plan_1448');
+            if (stored) {
+                try {
+                    programs = JSON.parse(stored);
+                } catch(e) {
+                    console.error("Error reading localStorage", e);
+                    programs = defaultPrograms;
+                }
+            } else {
+                programs = defaultPrograms;
+                saveToLocalStorage();
+            }
+            
+            updateDashboard();
+            renderPrograms();
+        };
+
+        // Local Storage Helper
+        function saveToLocalStorage() {
+            localStorage.setItem('operational_plan_1448', JSON.stringify(programs));
+        }
+
+        // Convert uploads to Base64 to save them locally (simulating real backend storage nicely in browser)
+        function handleFileSelection(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+            
+            // Limit to max 3 images to prevent huge local storage usage
+            const allowedUploadCount = Math.min(files.length, 3 - currentUploadedImages.length);
+            
+            for(let i = 0; i < allowedUploadCount; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUploadedImages.push(e.target.result);
+                    renderFormImagePreviews();
+                };
+                reader.readAsDataURL(files[i]);
+            }
+            // Reset input file value to allow reselection of same file if needed
+            event.target.value = '';
+        }
+
+        function renderFormImagePreviews() {
+            const container = document.getElementById('file-previews-container');
+            container.innerHTML = '';
+            
+            currentUploadedImages.forEach((src, index) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = "relative group border border-slate-200 rounded-lg overflow-hidden h-14 bg-slate-100";
+                
+                wrapper.innerHTML = `
+                    <img src="${src}" class="w-full h-full object-cover">
+                    <button type="button" onclick="removePreviewImage(${index})" class="absolute top-1 left-1 bg-red-600/80 hover:bg-red-600 text-white w-4 h-4 rounded-full flex items-center justify-center text-[8px] transition-all">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+                container.appendChild(wrapper);
+            });
+        }
+
+        function removePreviewImage(index) {
+            currentUploadedImages.splice(index, 1);
+            renderFormImagePreviews();
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let typeClasses = 'bg-slate-900 border-slate-800';
+            let icon = '<i class="fa-solid fa-info-circle text-sky-400"></i>';
+            
+            if (type === 'success') {
+                typeClasses = 'bg-emerald-950 border-emerald-800 text-emerald-100';
+                icon = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+            } else if (type === 'error') {
+                typeClasses = 'bg-rose-950 border-rose-800 text-rose-100';
+                icon = '<i class="fa-solid fa-triangle-exclamation text-rose-400"></i>';
+            } else if (type === 'info') {
+                typeClasses = 'bg-slate-900 border-slate-800 text-slate-100';
+                icon = '<i class="fa-solid fa-circle-info text-blue-400"></i>';
+            }
+
+            toast.className = `${typeClasses} border p-4 rounded-2xl flex items-center gap-3 shadow-xl max-w-sm w-80 transform translate-y-2 opacity-0 transition-all duration-300 text-xs font-semibold`;
+            toast.innerHTML = `
+                <div class="text-base">${icon}</div>
+                <div class="flex-grow">${message}</div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+            
+            // Animate out and remove
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        function updateDashboard() {
+            const total = programs.length;
+            const completed = programs.filter(p => p.status === 'completed').length;
+            const ongoing = programs.filter(p => p.status === 'ongoing').length;
+            const pending = programs.filter(p => p.status === 'pending').length;
+            
+            // Calc completion rate
+            const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+            
+            // Render text statistics
+            document.getElementById('total-programs-count').innerText = total;
+            document.getElementById('completed-programs-count').innerText = completed;
+            document.getElementById('ongoing-programs-count').innerText = ongoing;
+            document.getElementById('pending-programs-count').innerText = pending;
+            document.getElementById('completion-rate').innerText = `${rate}%`;
+
+            // Style progress rate bubble based on value
+            const indicator = document.getElementById('progress-indicator-circle');
+            if(rate >= 80) {
+                indicator.className = "w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-sm font-black border border-emerald-200";
+            } else if(rate >= 50) {
+                indicator.className = "w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-sm font-black border border-amber-200";
+            } else {
+                indicator.className = "w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center text-sm font-black border border-slate-200";
+            }
+
+            // Create or update Chart.js
+            const ctx = document.getElementById('statusChart').getContext('2d');
+            
+            if (myChartInstance) {
+                myChartInstance.destroy();
+            }
+
+            myChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['تم التنفيذ', 'جاري التنفيذ', 'لم يتم'],
+                    datasets: [{
+                        data: [completed, ongoing, pending],
+                        backgroundColor: ['#059669', '#d97706', '#e11d48'],
+                        borderColor: '#ffffff',
+                        borderWidth: 3,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            rtl: true,
+                            labels: {
+                                font: {
+                                    family: 'Cairo',
+                                    size: 11,
+                                    weight: 'bold'
+                                },
+                                boxWidth: 15,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            rtl: true,
+                            bodyFont: {
+                                family: 'Cairo'
+                            },
+                            titleFont: {
+                                family: 'Cairo'
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            
+            // Toggle active classes on filter buttons
+            const buttons = ['all', 'completed', 'ongoing', 'pending'];
+            buttons.forEach(b => {
+                const btn = document.getElementById(`btn-filter-${b}`);
+                if (b === filter) {
+                    btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-white text-slate-800 shadow-sm";
+                } else {
+                    btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-600 hover:text-slate-800";
+                }
+            });
+            
+            renderPrograms();
+        }
+
+        function filterPrograms() {
+            renderPrograms();
+        }
+
+        function renderPrograms() {
+            const tableBody = document.getElementById('programs-table-body');
+            const cardsContainer = document.getElementById('programs-cards-container');
+            const emptyState = document.getElementById('empty-state');
+            const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+            
+            tableBody.innerHTML = '';
+            cardsContainer.innerHTML = '';
+            
+            // Filter programs based on state + search query
+            const filtered = programs.filter(p => {
+                const matchesFilter = (currentFilter === 'all') || (p.status === currentFilter);
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery) || p.target.toLowerCase().includes(searchQuery);
+                return matchesFilter && matchesSearch;
+            });
+            
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+            }
+
+            filtered.forEach((prog, idx) => {
+                // Determine CSS Badges and Status labels
+                let statusBadge = '';
+                if(prog.status === 'completed') {
+                    statusBadge = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">
+                                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> تم التنفيذ
+                                   </span>`;
+                } else if(prog.status === 'ongoing') {
+                    statusBadge = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-100">
+                                      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> جاري التنفيذ
+                                   </span>`;
+                } else {
+                    statusBadge = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-100">
+                                      <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> لم يتم
+                                   </span>`;
+                }
+
+                // Render image thumbnails/evidence cell contents
+                let evidenceThumbnails = '<span class="text-xs text-slate-400 font-light">لا توجد شواهد</span>';
+                if(prog.images && prog.images.length > 0) {
+                    evidenceThumbnails = `<div class="flex gap-1.5">`;
+                    prog.images.forEach((img, index) => {
+                        evidenceThumbnails += `
+                            <div onclick="openImageInLightbox('${img}', '${prog.name}')" class="w-10 h-10 rounded-lg overflow-hidden border border-slate-200 cursor-pointer hover:border-eduGreen hover:scale-105 transition-all">
+                                <img src="${img}" class="w-full h-full object-cover" alt="مرفق الشواهد">
+                            </div>
+                        `;
+                    });
+                    evidenceThumbnails += `</div>`;
+                }
+
+                // 1. Populate Table Row (Desktop)
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/70 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-4 text-center font-bold text-slate-400">${idx + 1}</td>
+                    <td class="p-4">
+                        <div class="font-bold text-slate-800">${prog.name}</div>
+                        ${prog.desc ? `<div class="text-[11px] text-slate-400 max-w-sm truncate mt-0.5">${prog.desc}</div>` : ''}
+                    </td>
+                    <td class="p-4 text-xs font-semibold text-slate-600">${prog.target}</td>
+                    <td class="p-4 text-xs text-slate-500 font-semibold">${prog.date}</td>
+                    <td class="p-4">${statusBadge}</td>
+                    <td class="p-4">${evidenceThumbnails}</td>
+                    <td class="p-4 text-center">
+                        <div class="flex items-center justify-center gap-1">
+                            <button onclick="editProgram('${prog.id}')" class="p-2 text-slate-500 hover:text-eduGreen hover:bg-emerald-50 rounded-xl transition-all" title="تعديل">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button onclick="deleteProgram('${prog.id}')" class="p-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all" title="حذف">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+
+                // 2. Populate Card layout (Mobile View)
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3";
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold block mb-1">البرنامج ${idx + 1}</span>
+                            <h4 class="font-bold text-slate-800 text-sm">${prog.name}</h4>
+                        </div>
+                        <div class="flex gap-1">
+                            <button onclick="editProgram('${prog.id}')" class="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 hover:text-eduGreen flex items-center justify-center text-xs transition-all">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button onclick="deleteProgram('${prog.id}')" class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-xs transition-all">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    ${prog.desc ? `<p class="text-[11px] text-slate-500 line-clamp-2">${prog.desc}</p>` : ''}
+                    
+                    <div class="grid grid-cols-2 gap-3 pt-2 text-[11px] border-t border-slate-50">
+                        <div>
+                            <span class="text-slate-400 block font-semibold mb-0.5">المستهدفون</span>
+                            <span class="text-slate-700 font-bold">${prog.target}</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 block font-semibold mb-0.5">التاريخ</span>
+                            <span class="text-slate-700 font-bold">${prog.date}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2 pt-3 border-t border-slate-50">
+                        <div>
+                            <span class="text-slate-400 block text-[10px] mb-1">حالة التوثيق والتنفيذ</span>
+                            ${statusBadge}
+                        </div>
+                        <div>
+                            ${prog.images && prog.images.length > 0 ? `
+                                <div class="flex gap-1">
+                                    ${prog.images.map(img => `
+                                        <div onclick="openImageInLightbox('${img}', '${prog.name}')" class="w-8 h-8 rounded-lg overflow-hidden border border-slate-200">
+                                            <img src="${img}" class="w-full h-full object-cover">
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : `<span class="text-[10px] text-slate-400 font-light">بدون شواهد مصورة</span>`}
+                        </div>
+                    </div>
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
+
+        // Toggle the Addition/Editing Modal
+        function toggleAddModal(show) {
+            const modal = document.getElementById('program-modal');
+            const container = document.getElementById('modal-container');
+            
+            if (show) {
+                modal.classList.remove('pointer-events-none', 'opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            } else {
+                modal.classList.add('pointer-events-none', 'opacity-0');
+                container.classList.add('scale-95');
+                container.classList.remove('scale-100');
+                
+                // Reset form inputs & temp variables after closure delay
+                setTimeout(() => {
+                    document.getElementById('program-form').reset();
+                    document.getElementById('program-id').value = '';
+                    document.getElementById('modal-title').innerText = 'إضافة برنامج تشغيلي جديد';
+                    currentUploadedImages = [];
+                    document.getElementById('file-previews-container').innerHTML = '';
+                }, 300);
+            }
+        }
+
+        // Prep modal state to edit specific existing program
+        function editProgram(id) {
+            const prog = programs.find(p => p.id === id);
+            if (!prog) return;
+
+            document.getElementById('program-id').value = prog.id;
+            document.getElementById('program-name').value = prog.name;
+            document.getElementById('program-target').value = prog.target;
+            document.getElementById('program-date').value = prog.date;
+            document.getElementById('program-status').value = prog.status;
+            document.getElementById('program-desc').value = prog.desc || '';
+            
+            // Hydrate current uploaded images with existing attachments
+            currentUploadedImages = prog.images ? [...prog.images] : [];
+            renderFormImagePreviews();
+            
+            document.getElementById('modal-title').innerText = 'تعديل بيانات البرنامج التشغيلي';
+            toggleAddModal(true);
+        }
+
+        // Delete program confirmation and logic
+        function deleteProgram(id) {
+            // Using a modern clean design custom modal/toast setup instead of alert/confirm
+            const prog = programs.find(p => p.id === id);
+            if (!prog) return;
+
+            if (confirm(`هل أنت متأكد من رغبتك في حذف البرنامج: "${prog.name}" من الخطة؟`)) {
+                programs = programs.filter(p => p.id !== id);
+                saveToLocalStorage();
+                updateDashboard();
+                renderPrograms();
+                showToast('تم حذف البرنامج بنجاح', 'success');
+            }
+        }
+
+        // Save Program (Create or Update)
+        function saveProgram(event) {
+            event.preventDefault();
+            
+            const id = document.getElementById('program-id').value;
+            const name = document.getElementById('program-name').value.trim();
+            const target = document.getElementById('program-target').value.trim();
+            const date = document.getElementById('program-date').value.trim();
+            const status = document.getElementById('program-status').value;
+            const desc = document.getElementById('program-desc').value.trim();
+
+            if (!name || !target || !date || !status) {
+                showToast('يرجى ملء كافة الخانات المطلوبة بشكل صحيح', 'error');
+                return;
+            }
+
+            if (id) {
+                // UPDATE CURRENT PROGRAM
+                const idx = programs.findIndex(p => p.id === id);
+                if (idx !== -1) {
+                    programs[idx] = {
+                        ...programs[idx],
+                        name,
+                        target,
+                        date,
+                        status,
+                        desc,
+                        images: currentUploadedImages
+                    };
+                    showToast('تم تحديث البرنامج التشغيلي بنجاح', 'success');
+                }
+            } else {
+                // CREATE NEW PROGRAM
+                const newProg = {
+                    id: Date.now().toString(),
+                    name,
+                    target,
+                    date,
+                    status,
+                    desc,
+                    images: currentUploadedImages
+                };
+                programs.push(newProg);
+                showToast('تمت إضافة البرنامج الجديد للخطة التشغيلية بنجاح', 'success');
+            }
+
+            saveToLocalStorage();
+            updateDashboard();
+            renderPrograms();
+            toggleAddModal(false);
+        }
+
+        // Toggle the professional image viewing popup modal
+        function openImageInLightbox(src, title) {
+            const lightbox = document.getElementById('gallery-lightbox');
+            const img = document.getElementById('lightbox-image');
+            const titleElem = document.getElementById('lightbox-title');
+            
+            img.src = src;
+            titleElem.innerText = title;
+            
+            lightbox.classList.remove('pointer-events-none', 'opacity-0');
+        }
+
+        function toggleLightbox(show) {
+            const lightbox = document.getElementById('gallery-lightbox');
+            if(!show) {
+                lightbox.classList.add('pointer-events-none', 'opacity-0');
+            }
+        }
+    </script>
+</body>
+</html>
