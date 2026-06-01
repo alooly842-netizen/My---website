@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدول اختبارات الفصل الدراسي الثاني ١٤٤٧ - ١٤٤٨ هـ | مدرسة عبدالله بن مسعود</title>
+    <!-- Google Fonts for premium Arabic typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS for sleek styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for beautiful school/exam icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        moe: {
+                            green: '#007A53', // Official Ministry Green
+                            gold: '#C5A059',  // Accent Gold
+                            dark: '#1B3B32',
+                            light: '#F4FAF7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom print styling optimization */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-shadow-none {
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .print-border-black {
+                border-color: #000 !important;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+            input, select, textarea, [contenteditable] {
+                border: none !important;
+                outline: none !important;
+                background: transparent !important;
+            }
+            /* Double check margins for printing PDF neatly */
+            @page {
+                size: A4 portrait;
+                margin: 1.5cm;
+            }
+        }
+        
+        /* Subtle glowing and animations */
+        .editable-field {
+            transition: all 0.2s ease-in-out;
+        }
+        .editable-field:hover {
+            background-color: rgba(197, 160, 89, 0.1);
+            outline: 1px dashed #C5A059;
+            cursor: pointer;
+        }
+        .editable-field:focus {
+            background-color: rgba(0, 122, 83, 0.05);
+            outline: 2px solid #007A53;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 selection:bg-moe-gold selection:text-white min-h-screen flex flex-col">
+
+    <!-- TOP NOTIFICATION BAR (NO PRINT) -->
+    <div class="no-print bg-moe-dark text-white text-center py-2 px-4 text-sm flex flex-wrap justify-center items-center gap-3 border-b-2 border-moe-gold">
+        <span><i class="fa-solid fa-circle-info text-moe-gold ml-1"></i> أهلاً بك في نظام إدارة جداول الاختبارات التفاعلي. يمكنك تعديل أي خانة بالضغط عليها مباشرة!</span>
+        <div class="flex gap-2">
+            <span class="bg-moe-green text-xs px-2 py-1 rounded">من الصف الأول إلى السادس</span>
+            <span class="bg-moe-gold text-xs px-2 py-1 rounded text-moe-dark font-bold">جاهز للطباعة A4</span>
+        </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE CONTAINER -->
+    <main class="max-w-5xl w-full mx-auto p-4 md:p-8 flex-grow">
+        
+        <!-- INTERACTIVE CONTROLS PANEL (NO PRINT) -->
+        <div class="no-print bg-white p-6 rounded-2xl shadow-md border border-gray-100 mb-8 transition-all hover:shadow-lg">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-moe-dark flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-moe-gold"></i>
+                        لوحة التحكم والتجهيز للطباعة
+                    </h2>
+                    <p class="text-sm text-gray-500 mt-1">اختر الصف الدراسي المطلوب، عدل البيانات في الجدول بالأسفل، ثم اطبع بنقرة زر.</p>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="window.print()" class="bg-moe-green hover:bg-moe-dark text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-print"></i>
+                        طباعة الجدول الحالي (A4)
+                    </button>
+                    <button onclick="resetToTemplate()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        إعادة تعيين القالب
+                    </button>
+                </div>
+            </div>
+
+            <!-- GRADE SELECTION TABS -->
+            <div class="mt-6 border-t border-gray-100 pt-5">
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">اختر الصف الدراسي النشط لتعديله وطباعته:</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2" id="gradeTabs">
+                    <!-- Tabs will be generated by JS -->
+                </div>
+            </div>
+            
+            <!-- QUICK HELP TIPS -->
+            <div class="mt-4 bg-amber-50 border border-amber-200 p-3 rounded-lg text-xs text-amber-800 flex items-start gap-2">
+                <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5"></i>
+                <div>
+                    <strong>ملاحظة تنظيمية:</strong> اضغط على أي مادة أو تاريخ أو زمن داخل الجدول لتعديله فوراً. تم ضبط التنسيقات والخطوط الرسمية لتظهر بأعلى جودة جمالية أثناء التصدير لملف PDF أو الطباعة المباشرة على ورق A4.
+                </div>
+            </div>
+        </div>
+
+        <!-- THE EXAM SHEET TO BE PRINTED -->
+        <div id="printArea" class="bg-white p-6 md:p-10 rounded-3xl shadow-xl border border-gray-200 print-shadow-none print-border-black relative overflow-hidden transition-all duration-300">
+            
+            <!-- Beautiful Corner Borders for Official Document Feeling (Invisible on normal plain text but shines on premium paper) -->
+            <div class="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-moe-green pointer-events-none rounded-tr-3xl print:border-black"></div>
+            <div class="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-moe-green pointer-events-none rounded-tl-3xl print:border-black"></div>
+            <div class="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-moe-green pointer-events-none rounded-br-3xl print:border-black"></div>
+            <div class="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-moe-green pointer-events-none rounded-bl-3xl print:border-black"></div>
+
+            <!-- Header Section -->
+            <div class="grid grid-cols-3 items-center pb-6 border-b-2 border-dashed border-gray-200 mb-6 print-border-black">
+                
+                <!-- Right Header: School Details -->
+                <div class="text-right space-y-1">
+                    <p class="text-xs text-gray-500 font-semibold">المملكة العربية السعودية</p>
+                    <p class="text-xs text-gray-500">وزارة التعليم</p>
+                    <p class="text-xs text-gray-500">الإدارة العامة للتعليم بمنطقة نجران</p>
+                    <div class="flex items-center gap-1.5 justify-end">
+                        <span class="text-xs text-gray-400"><i class="fa-solid fa-school text-[10px] text-moe-gold"></i></span>
+                        <p class="text-sm font-bold text-moe-dark editable-field px-1 rounded inline-block" contenteditable="true" id="schoolName">مدرسة عبدالله بن مسعود الابتدائية</p>
+                    </div>
+                </div>
+
+                <!-- Center Header: Logo & Title -->
+                <div class="text-center flex flex-col items-center justify-center">
+                    <!-- Ministry of Education SVG Logo -->
+                    <div class="w-24 h-16 mb-2 flex items-center justify-center text-moe-green">
+                        <svg class="w-full h-full fill-current" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Simplified elegant representation of Saudi MOE logo for vector-sharp printing -->
+                            <path d="M250,50 C230,90 180,100 130,100 C150,115 170,140 175,170 C150,165 120,165 90,175 C120,190 140,210 145,240 C110,230 70,240 40,260 C80,265 110,285 115,310 L125,310 C125,280 100,255 70,245 C95,235 125,225 145,230 C140,195 115,180 85,170 C115,160 145,155 165,165 C160,130 135,105 105,95 C150,95 200,80 230,40 L250,50 Z" />
+                            <path d="M250,50 C270,90 320,100 370,100 C350,115 330,140 325,170 C350,165 380,165 410,175 C380,190 360,210 355,240 C390,230 430,240 460,260 C420,265 390,285 385,310 L375,310 C375,280 400,255 430,245 C405,235 375,225 355,230 C360,195 385,180 415,170 C385,160 355,155 335,165 C340,130 365,105 395,95 C350,95 300,80 270,40 L250,50 Z" />
+                            <circle cx="250" cy="110" r="12" />
+                            <circle cx="250" cy="145" r="10" />
+                            <circle cx="250" cy="175" r="8" />
+                            <circle cx="250" cy="205" r="6" />
+                            <!-- Small leaves or stars at bottom representing knowledge growth -->
+                            <path d="M230,230 Q250,250 270,230 Q250,240 230,230 Z" />
+                            <text x="250" y="280" font-family="'Cairo', sans-serif" font-size="28" font-weight="bold" text-anchor="middle" class="fill-current text-moe-green">وزارة التعليم</text>
+                            <text x="250" y="305" font-family="'Cairo', sans-serif" font-size="14" letter-spacing="2" text-anchor="middle" class="fill-current text-moe-gold">Ministry of Education</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Left Header: Exam Details -->
+                <div class="text-left space-y-1">
+                    <p class="text-xs text-gray-500 font-semibold">الموضوع: جدول اختبارات نهاية الفصل</p>
+                    <p class="text-xs text-gray-500">الفصل الدراسي: <span class="font-bold text-moe-dark editable-field px-1" contenteditable="true">الثاني</span></p>
+                    <p class="text-xs text-gray-500">العام الدراسي: <span class="font-bold text-moe-dark editable-field px-1" contenteditable="true">١٤٤٧ - ١٤٤٨ هـ</span></p>
+                    <div class="inline-block bg-moe-light border border-moe-green/20 text-moe-green text-[11px] font-bold px-2 py-0.5 rounded print:border-none print:p-0">
+                        التعليم العام - مرحلة ابتدائية
+                    </div>
+                </div>
+            </div>
+
+            <!-- TITLE & BADGE OF SELECTED GRADE -->
+            <div class="text-center my-6 relative">
+                <!-- Decorative Arabic Pattern Element -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                    <i class="fa-solid fa-mosque text-9xl"></i>
+                </div>
+                
+                <h1 class="text-2xl md:text-3xl font-extrabold text-moe-dark tracking-wide flex items-center justify-center gap-3">
+                    <span class="text-moe-gold text-lg md:text-2xl">✦</span>
+                    جدول اختبارات نهاية الفصل الدراسي الثاني للعام الدراسي ١٤٤٧ هـ
+                    <span class="text-moe-gold text-lg md:text-2xl">✦</span>
+                </h1>
+                
+                <!-- Dynamic active grade banner -->
+                <div class="mt-3 inline-flex items-center gap-2 bg-moe-green text-white px-6 py-1.5 rounded-full text-md font-bold shadow-md print:bg-transparent print:text-black print:shadow-none print:border print:border-black">
+                    <i class="fa-solid fa-graduation-cap text-moe-gold print:text-black"></i>
+                    <span>الصف:</span>
+                    <span id="currentGradeTitle" class="underline decoration-moe-gold decoration-2 underline-offset-4">الرابع الابتدائي</span>
+                </div>
+            </div>
+
+            <!-- TABLE CONTAINER -->
+            <div class="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm print:border-black print:shadow-none">
+                <table class="w-full text-center border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-moe-green text-white print:bg-gray-100 print:text-black print:border-b print:border-black">
+                            <th class="py-4 px-4 font-bold border-l border-moe-green/20 w-[20%] print:border-black text-xs md:text-sm">
+                                <div class="flex flex-col items-center justify-center gap-1">
+                                    <i class="fa-solid fa-calendar-days text-moe-gold text-sm print:hidden"></i>
+                                    <span>اليوم والتاريخ</span>
+                                </div>
+                            </th>
+                            <th class="py-4 px-4 font-bold border-l border-moe-green/20 w-[35%] print:border-black">
+                                <div class="flex flex-col items-center justify-center gap-1">
+                                    <span class="bg-white/20 text-white px-2 py-0.5 rounded-full text-[10px] print:text-black print:bg-none">الفترة الأولى</span>
+                                    <div class="flex items-center justify-center gap-4 mt-1 text-xs md:text-sm">
+                                        <span>المادة</span>
+                                        <span class="text-xs text-moe-light font-normal">|</span>
+                                        <span>الزمن</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="py-4 px-4 font-bold border-l border-moe-green/20 w-[35%] print:border-black">
+                                <div class="flex flex-col items-center justify-center gap-1">
+                                    <span class="bg-white/20 text-white px-2 py-0.5 rounded-full text-[10px] print:text-black print:bg-none">الفترة الثانية</span>
+                                    <div class="flex items-center justify-center gap-4 mt-1 text-xs md:text-sm">
+                                        <span>المادة</span>
+                                        <span class="text-xs text-moe-light font-normal">|</span>
+                                        <span>الزمن</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="py-4 px-3 font-bold w-[10%] text-xs md:text-sm">
+                                <div class="flex flex-col items-center justify-center gap-1">
+                                    <i class="fa-solid fa-circle-exclamation text-moe-gold text-sm print:hidden"></i>
+                                    <span>ملاحظات</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleRows" class="divide-y divide-gray-200 print:divide-black">
+                        <!-- Dynamic Rows loaded via Javascript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- INSTRUCTIONS / NOTES FOOTER -->
+            <div class="mt-6 p-4 bg-gray-50 rounded-xl border border-gray-100 text-xs text-gray-600 space-y-2 print:bg-transparent print:border-none print:p-0">
+                <div class="flex items-center gap-2 font-bold text-moe-dark mb-1">
+                    <i class="fa-solid fa-clipboard-question text-moe-gold"></i>
+                    <span>تنبيهات وإرشادات هامة للطلاب وأولياء الأمور:</span>
+                </div>
+                <ul class="list-disc list-inside space-y-1 text-right pr-4">
+                    <li>حضور الطلاب قبل طابور الصباح وبدء اللجنة بوقت كافٍ (الساعة ٧:٠٠ صباحاً).</li>
+                    <li>يُمنع منعاً باتاً إحضار الأجهزة الإلكترونية أو الهواتف النقالة داخل قاعات الاختبار.</li>
+                    <li>الالتزام بالزي المدرسي الرسمي والمظهر اللائق طوال فترة الاختبارات.</li>
+                </ul>
+            </div>
+
+            <!-- Signatures Section -->
+            <div class="mt-12 grid grid-cols-3 gap-4 pt-8 border-t border-gray-100 print:border-black text-center text-sm">
+                <!-- Prepared by Teacher -->
+                <div class="flex flex-col items-center">
+                    <p class="text-gray-400 text-xs mb-1">إعداد المعلم</p>
+                    <p class="font-bold text-moe-dark editable-field px-2 py-0.5 rounded" contenteditable="true" id="teacherName">عالي الغامدي</p>
+                    <div class="mt-8 border-t border-dashed border-gray-300 w-32 mx-auto print:border-black"></div>
+                    <span class="text-[10px] text-gray-400 mt-1">التوقيع</span>
+                </div>
+
+                <!-- Vice Principal -->
+                <div class="flex flex-col items-center">
+                    <p class="text-gray-400 text-xs mb-1">وكيل الشؤون التعليمية</p>
+                    <p class="font-bold text-moe-dark editable-field px-2 py-0.5 rounded" contenteditable="true" id="vicePrincipalName">ناجي مساعد الحارثي</p>
+                    <div class="mt-8 border-t border-dashed border-gray-300 w-32 mx-auto print:border-black"></div>
+                    <span class="text-[10px] text-gray-400 mt-1">التوقيع والختم</span>
+                </div>
+
+                <!-- Principal -->
+                <div class="flex flex-col items-center">
+                    <p class="text-gray-400 text-xs mb-1">مدير المدرسة</p>
+                    <p class="font-bold text-moe-dark editable-field px-2 py-0.5 rounded" contenteditable="true" id="principalName">محمد علي آل عبية</p>
+                    <div class="mt-8 border-t border-dashed border-gray-300 w-32 mx-auto print:border-black"></div>
+                    <span class="text-[10px] text-gray-400 mt-1">التوقيع والختم الرسمي</span>
+                </div>
+            </div>
+
+            <!-- Footer Small Printing Brand -->
+            <div class="mt-10 pt-4 border-t border-gray-100 print:border-black flex justify-between items-center text-[10px] text-gray-400">
+                <span>تاريخ الطباعة: <span id="printDatePlaceholder"></span> هـ</span>
+                <span class="font-bold">مدرسة عبدالله بن مسعود الابتدائية - مخرجات نظام الإدارة المدرسية الرقمي</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER (NO PRINT) -->
+    <footer class="no-print bg-moe-dark text-white text-center py-6 mt-12 border-t-4 border-moe-gold">
+        <div class="max-w-5xl mx-auto px-4 space-y-2">
+            <p class="font-bold">مدرسة عبدالله بن مسعود الابتدائية بنجران</p>
+            <p class="text-xs text-gray-400">جميع الحقوق محفوظة © ١٤٤٧ هـ - تم التطوير والتهيئة لتسهيل أعمال المعلمين والمنظمين</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR DYNAMIC DATA, SWITCHING GRADES & PERSISTENCE -->
+    <script>
+        // Set standard Hijri print date placeholder
+        document.getElementById('printDatePlaceholder').innerText = "١٤ / ٨ / ١٤٤٧";
+
+        // Grades configuration
+        const grades = [
+            { id: "grade1", name: "الأول الابتدائي" },
+            { id: "grade2", name: "الثاني الابتدائي" },
+            { id: "grade3", name: "الثالث الابتدائي" },
+            { id: "grade4", name: "الرابع الابتدائي" },
+            { id: "grade5", name: "الخامس الابتدائي" },
+            { id: "grade6", name: "السادس الابتدائي" }
+        ];
+
+        // Suggestive Templates of exams based on Grades of Primary Schools
+        const defaultTemplates = {
+            grade1: [
+                { day: "الأحد", date: "١٤٤٧/٠٨/١٦ هـ", p1_subject: "القرآن الكريم والتربية الإسلامية", p1_time: "ساعة ونصف", p2_subject: "استراحة ونشاط", p2_time: "-", note: "شفهي وتحريري" },
+                { day: "الإثنين", date: "١٤٤٧/٠٨/١٧ هـ", p1_subject: "لغتي", p1_time: "ساعة ونصف", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "-" },
+                { day: "الثلاثاء", date: "١٤٤٧/٠٨/١٨ هـ", p1_subject: "الرياضيات", p1_time: "ساعة ونصف", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "-" },
+                { day: "الأربعاء", date: "١٤٤٧/٠٨/١٩ هـ", p1_subject: "العلوم", p1_time: "ساعة ونصف", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "-" },
+                { day: "الخميس", date: "١٤٤٧/٠٨/٢٠ هـ", p1_subject: "التربية الفنية", p1_time: "ساعة واحدة", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "إنهاء اللجان" }
+            ],
+            grade2: [
+                { day: "الأحد", date: "١٤٤٧/٠٨/١٦ هـ", p1_subject: "القرآن الكريم والتربية الإسلامية", p1_time: "ساعة ونصف", p2_subject: "استراحة ونشاط", p2_time: "-", note: "شفهي وتحريري" },
+                { day: "الإثنين", date: "١٤٤٧/٠٨/١٧ هـ", p1_subject: "لغتي", p1_time: "ساعة ونصف", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "-" },
+                { day: "الثلاثاء", date: "١٤٤٧/٠٨/١٨ هـ", p1_subject: "الرياضيات", p1_time: "ساعة ونصف", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "-" },
+                { day: "الأربعاء", date: "١٤٤٧/٠٨/١٩ هـ", p1_subject: "العلوم", p1_time: "ساعة ونصف", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "-" },
+                { day: "الخميس", date: "١٤٤٧/٠٨/٢٠ هـ", p1_subject: "التربية الفنية", p1_time: "ساعة واحدة", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "إنهاء اللجان" }
+            ],
+            grade3: [
+                { day: "الأحد", date: "١٤٤٧/٠٨/١٦ هـ", p1_subject: "القرآن الكريم والتربية الإسلامية", p1_time: "ساعة ونصف", p2_subject: "استراحة ونشاط", p2_time: "-", note: "-" },
+                { day: "الإثنين", date: "١٤٤٧/٠٨/١٧ هـ", p1_subject: "لغتي", p1_time: "ساعة ونصف", p2_subject: "اللغة الإنجليزية", p2_time: "ساعة ونصف", note: "شفهي وتحريري" },
+                { day: "الثلاثاء", date: "١٤٤٧/٠٨/١٨ هـ", p1_subject: "الرياضيات", p1_time: "ساعة ونصف", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "-" },
+                { day: "الأربعاء", date: "١٤٤٧/٠٨/١٩ هـ", p1_subject: "العلوم", p1_time: "ساعة ونصف", p2_subject: "المهارات الحياتية", p2_time: "ساعة", note: "-" },
+                { day: "الخميس", date: "١٤٤٧/٠٨/٢٠ هـ", p1_subject: "التربية الفنية", p1_time: "ساعة واحدة", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "إنهاء اللجان" }
+            ],
+            grade4: [
+                { day: "الأحد", date: "١٤٤٧/٠٨/١٦ هـ", p1_subject: "القرآن الكريم والتجويد", p1_time: "ساعة ونصف", p2_subject: "المهارات الحياتية والأسرية", p2_time: "ساعة ونصف", note: "-" },
+                { day: "الإثنين", date: "١٤٤٧/٠٨/١٧ هـ", p1_subject: "لغتي الجميلة", p1_time: "ساعة ونصف", p2_subject: "الدراسات الإسلامية", p2_time: "ساعة ونصف", note: "تحريري" },
+                { day: "الثلاثاء", date: "١٤٤٧/٠٨/١٨ هـ", p1_subject: "الرياضيات", p1_time: "ساعة ونصف", p2_subject: "التربية الفنية", p2_time: "ساعة واحدة", note: "-" },
+                { day: "الأربعاء", date: "١٤٤٧/٠٨/١٩ هـ", p1_subject: "العلوم", p1_time: "ساعة ونصف", p2_subject: "الدراسات الاجتماعية", p2_time: "ساعة ونصف", note: "-" },
+                { day: "الخميس", date: "١٤٤٧/٠٨/٢٠ هـ", p1_subject: "اللغة الإنجليزية (We Can)", p1_time: "ساعة ونصف", p2_subject: "لا يوجد فترة ثانية", p2_time: "-", note: "أولياء الأمور" }
+            ],
+            grade5: [
+                { day: "الأحد", date: "١٤٤٧/٠٨/١٦ هـ", p1_subject: "الدراسات الإسلامية", p1_time: "ساعة ونصف", p2_subject: "المهارات الحياتية والأسرية", p2_time: "ساعة ونصف", note: "-" },
+                { day: "الإثنين", date: "١٤٤٧/٠٨/١٧ هـ", p1_subject: "الرياضيات", p1_time: "ساعة ونصف", p2_subject: "التربية الفنية", p2_time: "ساعة واحدة", note: "-" },
+                { day: "الثلاثاء", date: "١٤٤٧/٠٨/١٨ هـ", p1_subject: "لغتي الجميلة", p1_time: "ساعة ونصف", p2_subject: "القرآن الكريم والتجويد", p2_time: "ساعة ونصف", note: "-" },
+                { day: "الأربعاء", date: "١٤٤٧/٠٨/١٩ هـ", p1_subject: "العلوم", p1_time: "ساعة ونصف", p2_subject: "الدراسات الاجتماعية", p2_time: "ساعة ونصف", note: "-" },
+                { day: "الخميس", date: "١٤٤٧/٠٨/٢٠ هـ", p1_subject: "اللغة الإنجليزية", p1_time: "ساعة ونصف", p2_subject: "المهارات الرقمية", p2_time: "ساعة ونصف", note: "تحريري وعملي" }
+            ],
+            grade6: [
+                { day: "الأحد", date: "١٤٤٧/٠٨/١٦ هـ", p1_subject: "الرياضيات", p1_time: "ساعة ونصف", p2_subject: "المهارات الحياتية والأسرية", p2_time: "ساعة ونصف", note: "لجنة الاختبارات" },
+                { day: "الإثنين", date: "١٤٤٧/٠٨/١٧ هـ", p1_subject: "لغتي الجميلة", p1_time: "ساعة ونصف", p2_subject: "التربية الفنية", p2_time: "ساعة واحدة", note: "-" },
+                { day: "الثلاثاء", date: "١٤٤٧/٠٨/١٨ هـ", p1_subject: "الدراسات الإسلامية", p1_time: "ساعة ونصف", p2_subject: "القرآن الكريم والتجويد", p2_time: "ساعة ونصف", note: "-" },
+                { day: "الأربعاء", date: "١٤٤٧/٠٨/١٩ هـ", p1_subject: "العلوم", p1_time: "ساعة ونصف", p2_subject: "الدراسات الاجتماعية", p2_time: "ساعة ونصف", note: "-" },
+                { day: "الخميس", date: "١٤٤٧/٠٨/٢٠ هـ", p1_subject: "اللغة الإنجليزية", p1_time: "ساعة ونصف", p2_subject: "المهارات الرقمية", p2_time: "ساعة ونصف", note: "استلام الشهادات لاحقاً" }
+            ]
+        };
+
+        // State holder (Loads from localStorage or sets to defaults)
+        let currentActiveGrade = "grade4"; // Default to 4th Grade
+        let appData = {};
+
+        // Load or Initialize data
+        function loadData() {
+            const saved = localStorage.getItem('moe_school_exam_data');
+            if (saved) {
+                try {
+                    appData = JSON.parse(saved);
+                } catch(e) {
+                    appData = JSON.parse(JSON.stringify(defaultTemplates));
+                }
+            } else {
+                appData = JSON.parse(JSON.stringify(defaultTemplates));
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('moe_school_exam_data', JSON.stringify(appData));
+        }
+
+        // Render Tabs
+        function renderTabs() {
+            const tabsContainer = document.getElementById('gradeTabs');
+            tabsContainer.innerHTML = '';
+            
+            grades.forEach(grade => {
+                const isActive = grade.id === currentActiveGrade;
+                const tabBtn = document.createElement('button');
+                tabBtn.className = `px-3 py-2.5 rounded-xl text-xs md:text-sm font-bold text-center border transition-all ${
+                    isActive 
+                    ? 'bg-moe-green text-white border-moe-green shadow-sm' 
+                    : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-200 hover:border-gray-300'
+                }`;
+                
+                tabBtn.innerHTML = `
+                    <div class="flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-graduation-cap text-[10px] ${isActive ? 'text-moe-gold' : 'text-gray-400'}"></i>
+                        <span>${grade.name}</span>
+                    </div>
+                `;
+                tabBtn.onclick = () => switchGrade(grade.id);
+                tabsContainer.appendChild(tabBtn);
+            });
+        }
+
+        // Switch Grade
+        function switchGrade(gradeId) {
+            currentActiveGrade = gradeId;
+            const foundGrade = grades.find(g => g.id === gradeId);
+            document.getElementById('currentGradeTitle').innerText = foundGrade.name;
+            renderTabs();
+            renderTableRows();
+        }
+
+        // Render Table Rows
+        function renderTableRows() {
+            const rowsContainer = document.getElementById('scheduleRows');
+            rowsContainer.innerHTML = '';
+            
+            const schedule = appData[currentActiveGrade];
+            
+            schedule.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/50 transition-colors print:hover:bg-transparent";
+                
+                tr.innerHTML = `
+                    <!-- Day and Date Column -->
+                    <td class="py-4 px-3 border-l border-gray-100 print:border-black text-right font-semibold">
+                        <div class="flex flex-col gap-1 items-center md:items-start md:pr-4">
+                            <span class="text-moe-green font-extrabold print:text-black editable-field px-1 rounded text-xs md:text-sm" contenteditable="true" onblur="updateCell(${index}, 'day', this.innerText)">${row.day}</span>
+                            <span class="text-xs text-gray-500 font-medium editable-field px-1 rounded" contenteditable="true" onblur="updateCell(${index}, 'date', this.innerText)">${row.date}</span>
+                        </div>
+                    </td>
+                    
+                    <!-- First Session Column -->
+                    <td class="py-4 px-3 border-l border-gray-100 print:border-black text-right">
+                        <div class="flex flex-col gap-1.5 md:flex-row md:items-center justify-between md:px-2">
+                            <span class="font-bold text-gray-800 editable-field px-1.5 py-0.5 rounded text-xs md:text-sm flex-1 ml-2" contenteditable="true" onblur="updateCell(${index}, 'p1_subject', this.innerText)">${row.p1_subject}</span>
+                            <div class="flex items-center gap-1 shrink-0 mt-1 md:mt-0 text-[10px] md:text-xs text-gray-400 print:text-black">
+                                <i class="fa-regular fa-clock text-[9px] text-moe-gold print:hidden"></i>
+                                <span class="editable-field px-1 py-0.5 rounded" contenteditable="true" onblur="updateCell(${index}, 'p1_time', this.innerText)">${row.p1_time}</span>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!-- Second Session Column -->
+                    <td class="py-4 px-3 border-l border-gray-100 print:border-black text-right">
+                        <div class="flex flex-col gap-1.5 md:flex-row md:items-center justify-between md:px-2">
+                            <span class="font-bold text-gray-800 editable-field px-1.5 py-0.5 rounded text-xs md:text-sm flex-1 ml-2" contenteditable="true" onblur="updateCell(${index}, 'p2_subject', this.innerText)">${row.p2_subject}</span>
+                            <div class="flex items-center gap-1 shrink-0 mt-1 md:mt-0 text-[10px] md:text-xs text-gray-400 print:text-black">
+                                <i class="fa-regular fa-clock text-[9px] text-moe-gold print:hidden"></i>
+                                <span class="editable-field px-1 py-0.5 rounded" contenteditable="true" onblur="updateCell(${index}, 'p2_time', this.innerText)">${row.p2_time}</span>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!-- Notes Column -->
+                    <td class="py-4 px-2 text-xs text-gray-500 font-medium">
+                        <div class="editable-field px-1.5 py-1 rounded inline-block text-center w-full" contenteditable="true" onblur="updateCell(${index}, 'note', this.innerText)">${row.note}</div>
+                    </td>
+                `;
+                
+                rowsContainer.appendChild(tr);
+            });
+        }
+
+        // Update single cell in state and save
+        function updateCell(rowIndex, key, newValue) {
+            appData[currentActiveGrade][rowIndex][key] = newValue.trim();
+            saveData();
+        }
+
+        // Reset system to Template defaults
+        function resetToTemplate() {
+            if(confirm("هل أنت متأكد من رغبتك في إعادة تعيين كافة جداول الفصول إلى قالبها الافتراضي؟ ستفقد أي تعديلات قمت بها.")) {
+                appData = JSON.parse(JSON.stringify(defaultTemplates));
+                saveData();
+                switchGrade(currentActiveGrade);
+                
+                // Reset names
+                document.getElementById('schoolName').innerText = "مدرسة عبدالله بن مسعود الابتدائية";
+                document.getElementById('teacherName').innerText = "عالي الغامدي";
+                document.getElementById('vicePrincipalName').innerText = "ناجي مساعد الحارثي";
+                document.getElementById('principalName').innerText = "محمد علي آل عبية";
+            }
+        }
+
+        // Load and setup on init
+        window.onload = function() {
+            loadData();
+            renderTabs();
+            renderTableRows();
+        };
+    </script>
+</body>
+</html>
